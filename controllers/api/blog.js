@@ -21,6 +21,9 @@ function jsonBlogs (_, res) {
 async function createBlog(req, res, next){
     try {
         const blog = await Blog.create(req.body)
+        const user = req.user
+        user.blogs.push(blog)
+        await user.save()
         console.log(blog)
         res.locals.data.blog = blog
         next()
@@ -62,6 +65,10 @@ async function updateBlog(req ,res,next) {
 async function destroyBlog(req ,res,next) {
     try {
         const blog = await Blog.findByIdAndDelete(req.params.id)
+        const user = await req.user
+        const blogIndex = user.blogs.indexOf(blog)
+        user.blogs.splice(blogIndex, 1)
+        await user.save()
         res.locals.data.blog = blog
         next()
     } catch (error) {
