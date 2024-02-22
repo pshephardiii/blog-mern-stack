@@ -20,11 +20,10 @@ function jsonBlogs (_, res) {
 
 async function createBlog(req, res, next){
     try {
+        req.body.user = req.user._id
         const blog = await Blog.create(req.body)
-        const user = req.user
-        user.blogs.push(blog)
-        await user.save()
-        console.log(blog)
+        req.user.blogs.addToSet(blog)
+        req.user.save()
         res.locals.data.blog = blog
         next()
     } catch (error) {
@@ -54,7 +53,7 @@ async function showBlog(req ,res,next) {
 
 async function updateBlog(req ,res,next) {
     try {
-        const blog = await Blog.findByIdAndUpdate(req.params.id, req.body, { new: true })
+        const blog = await Blog.findByIdAndUpdate({_id: req.params.id, user: req.user._id }, req.body, { new: true })
         res.locals.data.blog = blog
         next()
     } catch (error) {
@@ -64,7 +63,7 @@ async function updateBlog(req ,res,next) {
 
 async function destroyBlog(req ,res,next) {
     try {
-        const blog = await Blog.findByIdAndDelete(req.params.id)
+        const blog = await Blog.findByIdAndDelete({ _id: req.params.id, user: req.user._id })
         const user = await req.user
         const blogIndex = user.blogs.indexOf(blog)
         user.blogs.splice(blogIndex, 1)
