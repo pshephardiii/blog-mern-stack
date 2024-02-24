@@ -45,6 +45,15 @@ function App() {
       console.error(error);
     }
   };
+  const login = async credentials => {
+    const response = await ('/api/user/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(credentials)
+    });
+  };
   return /*#__PURE__*/React.createElement("div", {
     className: _App_module_scss__WEBPACK_IMPORTED_MODULE_4__["default"].App
   }, /*#__PURE__*/React.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_5__.Routes, null, /*#__PURE__*/React.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_5__.Route, {
@@ -459,4 +468,4 @@ var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js
 /******/ 	
 /******/ })()
 ;
-//# sourceMappingURL=App.7ab8405e3e8bb2f8bc2a0956bb27cb16.js.map
+//# sourceMappingURL=App.d65c4eea8fc6419cb8f4d229f9c9aa72.js.map
