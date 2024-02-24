@@ -11,7 +11,7 @@ export default function App() {
 
     const signUp = async (credentials) => {
         try {
-            const response = fetch('/api/user', {
+            const response = await fetch('/api/user', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
