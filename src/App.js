@@ -22,7 +22,8 @@ export default function App() {
             setUser(data.user)
             setToken(data.token)
             localStorage.setItem('token', data.token)
-            localStorage.setItem('user', data.user)
+            // need to stringify data.user because it's an object and you can't store objects in localStorage
+            localStorage.setItem('user', JSON.stringify(data.user))
         } catch (error) {
             console.error(error)
         }
@@ -42,7 +43,7 @@ export default function App() {
             localStorage.setItem('token', tokenData)
             setToken(tokenData)
             const userData = data.user
-            localStorage.setItem('user', userData)
+            localStorage.setItem('user', JSON.stringify(userData))
             setUser(userData)
         } catch (error) {
             console.error(error)
@@ -135,6 +136,7 @@ export default function App() {
                     user={user} 
                     token={token} 
                     setToken={setToken} 
+                    setUser={setUser}
                     getAllBlogs={getAllBlogs}
                     createBlog={createBlog}
                 />}></Route>

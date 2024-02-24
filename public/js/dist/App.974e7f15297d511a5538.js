@@ -41,7 +41,8 @@ function App() {
       setUser(data.user);
       setToken(data.token);
       localStorage.setItem('token', data.token);
-      localStorage.setItem('user', data.user);
+      // need to stringify data.user because it's an object and you can't store objects in localStorage
+      localStorage.setItem('user', JSON.stringify(data.user));
     } catch (error) {
       console.error(error);
     }
@@ -60,7 +61,7 @@ function App() {
       localStorage.setItem('token', tokenData);
       setToken(tokenData);
       const userData = data.user;
-      localStorage.setItem('user', userData);
+      localStorage.setItem('user', JSON.stringify(userData));
       setUser(userData);
     } catch (error) {
       console.error(error);
@@ -147,6 +148,7 @@ function App() {
       user: user,
       token: token,
       setToken: setToken,
+      setUser: setUser,
       getAllBlogs: getAllBlogs,
       createBlog: createBlog
     })
@@ -169,6 +171,37 @@ function App() {
       deleteBlog: deleteBlog
     })
   })));
+}
+
+/***/ }),
+
+/***/ "./src/components/Blogs/Blogs.js":
+/*!***************************************!*\
+  !*** ./src/components/Blogs/Blogs.js ***!
+  \***************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ Blogs)
+/* harmony export */ });
+function Blogs(props) {
+  return;
+}
+
+/***/ }),
+
+/***/ "./src/components/CreateForm/CreateForm.js":
+/*!*************************************************!*\
+  !*** ./src/components/CreateForm/CreateForm.js ***!
+  \*************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ CreateForm)
+/* harmony export */ });
+/* provided dependency */ var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+function CreateForm(props) {
+  return /*#__PURE__*/React.createElement("h1", null, "Create Form Here");
 }
 
 /***/ }),
@@ -356,9 +389,46 @@ function AuthPage(props) {
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ HomePage)
 /* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _components_CreateForm_CreateForm__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../components/CreateForm/CreateForm */ "./src/components/CreateForm/CreateForm.js");
+/* harmony import */ var _components_Blogs_Blogs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../components/Blogs/Blogs */ "./src/components/Blogs/Blogs.js");
 /* provided dependency */ var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-function HomePage() {
-  return /*#__PURE__*/React.createElement("h1", null, "This is the HomePage");
+// this will be different than bookmarks
+
+
+
+
+function HomePage(props) {
+  const [blogs, setBlogs] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
+  const [showCreate, setShowCreate] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+  // blogs
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    const fetchBlogs = async () => {
+      try {
+        const data = await props.getAllBlogs();
+        setBlogs(data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchBlogs();
+  }, []);
+
+  // checking token and user in localStorage
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    if (localStorage.token && !props.token) {
+      props.setToken(localStorage.getItem('token'));
+      setShowCreate(true);
+    }
+    if (localStorage.token && localStorage.user && !props.user) {
+      // JSON.parse turns a string into an object... need to do this to transform user back into object when taking it out of localStorage
+      props.setUser(JSON.parse(localStorage.getItem('user')));
+    }
+  }, []);
+  return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h1", null, "Welcome to the Liberty Blog!"), showCreate ? /*#__PURE__*/React.createElement(_components_CreateForm_CreateForm__WEBPACK_IMPORTED_MODULE_1__["default"], null) : /*#__PURE__*/React.createElement(React.Fragment, null), blogs.length ? /*#__PURE__*/React.createElement(_components_Blogs_Blogs__WEBPACK_IMPORTED_MODULE_2__["default"], {
+    blogs: blogs
+  }) : 'Sorry our writers are lazy!');
 }
 
 /***/ }),
@@ -880,4 +950,4 @@ var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js
 /******/ 	
 /******/ })()
 ;
-//# sourceMappingURL=App.c60405d52b34fa47d8217025050d4d3e.js.map
+//# sourceMappingURL=App.b8f5ebc0a1416c182f810b8d86bd0fec.js.map
