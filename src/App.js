@@ -130,9 +130,30 @@ export default function App() {
     return(
         <div className={styles.App}>
             <Routes>
-                <Route path="/" element={<HomePage user={user} token={token} setToken={setToken} />}></Route>
-                <Route path="/register" element={<AuthPage setUser={setUser} setToken={setToken} signUp={signUp} />}></Route>
-                <Route path="/blog" element={<ShowPage user={user} token={token} setToken={setToken} />}></Route>
+                <Route path="/" element={
+                <HomePage 
+                    user={user} 
+                    token={token} 
+                    setToken={setToken} 
+                    getAllBlogs={getAllBlogs}
+                    createBlog={createBlog}
+                />}></Route>
+                <Route path="/register" element={
+                <AuthPage 
+                    setUser={setUser} 
+                    setToken={setToken} 
+                    signUp={signUp} 
+                    login={login}
+                />}></Route>
+                <Route path="/blog" element={
+                <ShowPage 
+                    user={user} 
+                    token={token} 
+                    setToken={setToken} 
+                    getIndividualBlog={getIndividualBlog}
+                    updateBlog={updateBlog}
+                    deleteBlog={deleteBlog}
+                />}></Route>
             </Routes>
         </div>
     )
