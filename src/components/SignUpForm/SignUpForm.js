@@ -16,7 +16,7 @@ export default function SignUpForm (props) {
     return(
         <>
         
-            <h2 className={styles.heading}>Sign Up for my Dope Blog Below</h2>
+            <h2 className={styles.heading}>Sign Up Below</h2>
             <form className={styles.form} onSubmit={(e) => {
                 e.preventDefault()
                 props.signUp(credentials)

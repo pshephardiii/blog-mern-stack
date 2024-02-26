@@ -130,6 +130,9 @@ export default function App() {
 
     return(
         <div className={styles.App}>
+            <div className={styles.banner}>
+                <h1>Paul's Awesome Blog!</h1>
+            </div>
             <Routes>
                 <Route path="/" element={
                 <HomePage 
