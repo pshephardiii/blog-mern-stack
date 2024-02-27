@@ -20,9 +20,9 @@ export default function LoginForm (props) {
                 e.preventDefault()
                 props.login(credentials)
             }}>
-                <input type='email' name="email" placeholder="email" onChange={handleChange} value={credentials.email} />
-                <input type='password' name="password" placeholder="password" onChange={handleChange} value={credentials.password} />
-                <input type="submit" value="Submit" />
+                <input className={styles.formInput} type='email' name="email" placeholder="email" onChange={handleChange} value={credentials.email} />
+                <input className={styles.formInput} type='password' name="password" placeholder="password" onChange={handleChange} value={credentials.password} />
+                <input className={styles.formSubmit} type="submit" value="Submit" />
             </form>
         </>
     )
