@@ -3,6 +3,7 @@
 import{ useState, useEffect } from 'react'
 import CreateForm from '../../components/CreateForm/CreateForm'
 import Blogs from '../../components/Blogs/Blogs'
+import styles from './HomePage.module.scss'
 
 export default function HomePage (props) {
     const [blogs, setBlogs] = useState([])
@@ -30,12 +31,13 @@ export default function HomePage (props) {
         if (localStorage.token && localStorage.user && !props.user) {
             // JSON.parse turns a string into an object... need to do this to transform user back into object when taking it out of localStorage
             props.setUser(JSON.parse(localStorage.getItem('user')))
+            setShowCreate(true)
         }
     }, [])
 
     return(
-        <div>
-            <h1>Welcome to the Liberty Blog!</h1>
+        <div className={styles.homePage}>
+            <h1>Keep on Bloggin'</h1>
             { showCreate ? <CreateForm user={props.user} createBlog={props.createBlog} token={props.token} /> : <></> }
             { blogs.length ? <Blogs blogs={blogs}/> : 'Sorry our writers are lazy!' }
         </div>

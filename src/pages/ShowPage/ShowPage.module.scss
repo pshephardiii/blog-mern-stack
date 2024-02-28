@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=Anta&display=swap');
+
+.showPage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    padding-top: 2rem;
+
+    .link {
+        color: black;
+        text-decoration: none;
+        padding: 1rem;
+        text-align: center;
+    }
+    .link:hover {
+        color: blueviolet;
+        font-size: 1.7rem;
+    }
+
+    .header {
+        font-family: "Anta", sans-serif;
+    }
+
+    .blogBody {
+        font-size: 1.5rem;
+    }
+
+    .button {
+        height: 2.5rem;
+        background-color: purple;
+        color: white;
+        border-radius: 10px;
+        font-size: 1.5rem;
+        cursor: pointer;
+    }
+    .button:hover {
+        background-color: white;
+        color: purple;
+    }
+}

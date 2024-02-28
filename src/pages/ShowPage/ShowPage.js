@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import Blog from '../../components/Blog/Blog'
 import UpdateForm from '../../components/UpdateForm/UpdateForm'
 import { useParams, useNavigate, Link } from 'react-router-dom'
+import styles from './ShowPage.module.scss'
 
 export default function ShowPage (props) {
     const [showUpdate, setShowUpdate] = useState(false)
@@ -51,14 +52,14 @@ export default function ShowPage (props) {
     }
 
     return(
-        <div>
-            <Link to={'/'}>Go to Home Page</Link>
-            <h1>{blog?.title || 'Loading...'}</h1>
-            <p>{blog?.body || ''}</p>
+        <div className={styles.showPage}>
+            <Link to={'/'} className={styles.link}>Go to Home Page</Link>
+            <h1 className={styles.header}>{blog?.title || 'Loading...'}</h1>
+            <p className={styles.blogBody}>{blog?.body || ''}</p>
             { allowChanges ?
-            <button onClick={() => setShowUpdate(!showUpdate)}>Reveal Update Form</button> : <></> }
+            <button className={styles.button} onClick={() => setShowUpdate(!showUpdate)}>Reveal Update Form</button> : <></> }
             {allowChanges && showUpdate ? <UpdateForm id={id} updateBlog={props.updateBlog} setShowUpdate={setShowUpdate} setBlog={setBlog} blog={blog} token={props.token} setToken={props.token}/> : <></>}
-            {allowChanges ? <button onClick={handleDelete}>Delete Blog</button> : <></>}
+            {allowChanges ? <button className={styles.button} onClick={handleDelete}>Delete Blog</button> : <></>}
         </div>
     )
 }

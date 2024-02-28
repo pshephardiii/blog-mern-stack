@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import styles from './CreateForm.module.scss'
 
 
 export default function CreateForm(props) {
@@ -23,11 +24,13 @@ export default function CreateForm(props) {
     } 
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form className={styles.createForm} onSubmit={handleSubmit}>
             <h2>Create A New Blog Post, {props.user.name}</h2>
-            <input placeholder="Title" type="text" name="title" value={formData.title} onChange={handleChange} />
-            <input placeholder="Body" type="text" name="body" value={formData.body} onChange={handleChange} />
-            <input type="submit" value="Create Blog" />
+            <div className={styles.inputContainer}>
+                <input className={styles.input} placeholder="Title" type="text" name="title" value={formData.title} onChange={handleChange} />
+                <input className={styles.input} placeholder="Body" type="text" name="body" value={formData.body} onChange={handleChange} />
+                <input className={styles.submit} type="submit" value="Create Blog" />
+            </div>
         </form>
     )
 }
