@@ -82,7 +82,7 @@ export default function App() {
 
     const getIndividualBlog = async (id) => {
         try {
-            const response = await fetch(`/api/blog${id}`)
+            const response = await fetch(`/api/blog/${id}`)
             const data = await response.json()
             return data
         } catch (error) {
@@ -99,7 +99,7 @@ export default function App() {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorizaton': `Bearer ${token}`
+                    'Authorization': `Bearer ${token}`
                 },
                 body: JSON.stringify(newBlogData)
             })
@@ -118,7 +118,7 @@ export default function App() {
             const response = await fetch(`/api/blog/${id}`, {
                 method: 'DELETE',
                 headers: {
-                    'Authorizaton': `Bearer ${token}`
+                    'Authorization': `Bearer ${token}`
                 }
             })
             const data = await response.json()
@@ -150,11 +150,12 @@ export default function App() {
                     signUp={signUp} 
                     login={login}
                 />}></Route>
-                <Route path="/blog" element={
+                <Route path="/blog/:id" element={
                 <ShowPage 
                     user={user} 
                     token={token} 
                     setToken={setToken} 
+                    setUser={setUser}
                     getIndividualBlog={getIndividualBlog}
                     updateBlog={updateBlog}
                     deleteBlog={deleteBlog}
